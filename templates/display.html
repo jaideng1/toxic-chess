@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chess Display</title>
+        <link rel="stylesheet" href="/static/display.css" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="cf-container">
+            <div id="confirm" onclick="onStart()">Ready to start?</div><br>
+            <h1 id="turn">Not playing yet.</h1>
+        </div>
+        <div id="board-container">
+            
+        </div>
+        <button onclick="chooseCustomChoice()">Choose Not Shown Choice</button>
+        <script src="/static/connections.js"></script>
+        <script src="/static/pieces.js"></script>
+        <script src="/static/display.js"></script>
+    </body>
+</html>
