@@ -1,8 +1,0 @@
-For figuring out how 2 do color detection:
-https://www.programcreek.com/python/?code=hoanglehaithanh%2FTraffic-Sign-Detection%2FTraffic-Sign-Detection-master%2Fmain.py
-
-Examples on color detection:
-https://www.programcreek.com/python/example/70463/cv2.COLOR
-
-Chess Bot:
-https://python-chess.readthedocs.io/
