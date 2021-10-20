@@ -3,6 +3,7 @@ import os
 import csv
 import glob
 import json
+import time
 from random import randint
 
 language = "en"
@@ -23,6 +24,13 @@ shakespear = [
 #arfarfan'arf - wwhaat??
 names = [
 
+]
+
+starters = [
+    "fuck you",
+    "screw you",
+    "frick you",
+    "you are a dumbass,",
 ]
 
 #Loading
@@ -80,6 +88,13 @@ def generateShakespeareanInsult():
 
     return wrds[0] + " " + wrds[1] + " " + wrds[2]
 
+def randNameInsult():
+    return names[randint(0, len(names) - 1)]
+
+
+def getStarter():
+    return starters[randint(0, len(starters) - 1)]
+
 #Saying insults
 def missedEnPassantInsult():
     insult = "Are you kidding ??? What the fuck are you talking about man ? You are a biggest looser i ever seen in my life ! You was doing PIPI in your pampers when i was beating players much more stronger then you! You are not proffesional, because proffesionals knew how to lose and congratulate opponents, you are like a girl crying after i beat you! Be brave, be honest to yourself and stop this trush talkings!!! Everybody know that i am very good blitz player, i can win anyone in the world in single game! And wesley so is nobody for me, just a player who are crying every single time when loosing, ( remember what you say about Firouzja ) !!! Stop playing with my name, i deserve to have a good name during whole my chess carrier, I am Officially inviting you to OTB blitz match with the Prize fund! Both of us will invest 5000$ and winner takes it all! I suggest all other people who's intrested in this situation, just take a look at my results in 2016 and 2017 Blitz World championships, and that should be enough... No need to listen for every crying babe, Tigran Petrosyan is always play Fair ! And if someone will continue Officially talk about me like that, we will meet in Court! God bless with true! True will never die ! Liers will kicked off..."
@@ -91,14 +106,18 @@ def illegalPlayInsult():
     play(createNewRecording(insult))
 
 def choosePieceInsult():
-    insult = "choose the piece you took you " + generateShakespeareanInsult()
+    ps_l = [
+        generateShakespeareanInsult(),
+        randNameInsult() + randNameInsult()
+    ]
+    insult = "choose the piece you took you " + ps_l[randint(0, 1)]
     play(createNewRecording(insult))
 
 def moveInsult(piece, from_, to):
     inserts = [
-        "you hear me, you " + names[randint(0, len(names) - 1)],
+        "you hear me, you " + randNameInsult() + randNameInsult(),
         "you got it, you " + generateShakespeareanInsult(),
-        ". guess you're gonna lose soon"
+        ". " + getStarter() + " you " + randNameInsult() + ", guess you're gonna lose soon"
     ]
     insult = "i moved my " + piece + " from " + from_ + " to " + to + ", " + inserts[randint(0, len(inserts) - 1)]
     if doInsults:
@@ -118,6 +137,7 @@ init()
 
 if __name__ == "__main__":
     #missedEnPassantInsult()
-    #play(createNewRecording(" you, you " + generateShakespeareanInsult()))
-    moveInsult("pawn", "e7", "e5")
+    play(createNewRecording(getStarter() + " you " + randNameInsult() + randNameInsult()))
+    # #moveInsult("pawn", "e7", "e5")
     print("done")
+

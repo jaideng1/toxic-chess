@@ -50,6 +50,12 @@ def makeMove(gridFrom, gridTo):
 def makeUCIMove(p1, p2):
     board.push(chess.Move.from_uci(p1 + p2))
 
+def getLetterDistance(p1, p2):
+    return abs(nameCoords.index(utils.split(p1)[0]) - nameCoords.index(utils.split(p2)[0]))
+
+def getUnchangedLetterDistance(p1, p2):
+    return nameCoords.index(utils.split(p1)[0]) - nameCoords.index(utils.split(p2)[0])
+
 #Unmakes the last move.
 def unmakeLastMove():
     unmadeMove = board.pop()

@@ -1,5 +1,6 @@
 #imports
 from re import sub
+import utils
 import cv2
 import numpy as np
 import contours as ct
@@ -253,7 +254,10 @@ def main():
     blue_frame = ct.getColor(frame, lower_blue, upper_blue)
     #get the green
     green_frame = ct.getColor(frame, lower_green, upper_green)
-    #get yellow frame
+    #    yellow_frame = ct.getColor(frame, lower_yellow, upper_yellow)
+
+
+    #get blue frame
     yellow_frame = ct.getColor(frame, lower_yellow, upper_yellow)
 
     #get the blue frame contours
@@ -372,16 +376,24 @@ def main():
 
                         engine_mv = chess.makeEngineMove()
                         
-                        if chess.getBoard().is_castling(engine_mv.move):
+                        frm_piece = {}
+                        
+                        if chess.getBoard().is_castling(engine_mv.move) or (chess.getBoard().is_queenside_castling(engine_mv.move) or chess.getBoard().is_kingside_castling(engine_mv.move)) or (chess.getLetterDistance(chess.uciToSplit(engine_mv)[0], chess.uciToSplit(engine_mv)[1]) == 2 and utils.split(str(engine_mv.move))[0] == "e" and piece_tracker['black']['king'][0] == 31):
                             print("Engine castled")
                             kingside_rook = getPieceByCoord(7)
                             queenside_rook = getPieceByCoord(63)
-                            if chess.getBoard().is_kingside_castling(engine_mv.move):
+                            if chess.getBoard().is_kingside_castling(engine_mv.move) or (chess.getUnchangedLetterDistance(chess.uciToSplit(engine_mv)[0], chess.uciToSplit(engine_mv)[1]) < 0):
                                 piece_tracker['black']['rooks'][kingside_rook['n']] = 23
                                 piece_tracker['black']['king'][0] = 15
                             else:
                                 piece_tracker['black']['rooks'][queenside_rook['n']] = 39
                                 piece_tracker['black']['king'][0] = 47
+                            
+                            frm_piece = {
+                                'type': "rook and king", 
+                                'side': 'black',
+                                'n': 1
+                            }
                         else:
                             move = chess.uciToSplit(engine_mv)
 
@@ -404,7 +416,10 @@ def main():
                             #Update the piece tracker to black's move
                             piece_tracker[frm_piece['side']][frm_piece['type']][int(frm_piece['n'])] = to
 
-                        insults.moveInsult(frm_piece['type'], move[0], move[1])
+                        try:
+                            insults.moveInsult(frm_piece['type'], move[0], move[1])
+                        except:
+                            insults.play(insults.createNewRecording("i think i castled bitch. 480"))
                         display.changeTurn()
 
                         print("### BLACK TURN FINISH ###")
@@ -472,17 +487,25 @@ def main():
                         print("Made move on board.")
                         
                         engine_mv = chess.makeEngineMove()
+
+                        frm_piece = {}
                         
-                        if chess.getBoard().is_castling(engine_mv.move):
+                        if chess.getBoard().is_castling(engine_mv.move) or (chess.getBoard().is_queenside_castling(engine_mv.move) or chess.getBoard().is_kingside_castling(engine_mv.move)) or (chess.getLetterDistance(chess.uciToSplit(engine_mv)[0], chess.uciToSplit(engine_mv)[1]) == 2 and utils.split(str(engine_mv.move))[0] == "e" and piece_tracker['black']['king'][0] == 31):
                             print("Engine castled")
                             kingside_rook = getPieceByCoord(7)
                             queenside_rook = getPieceByCoord(63)
-                            if chess.getBoard().is_kingside_castling(engine_mv.move):
+                            if chess.getBoard().is_kingside_castling(engine_mv.move) or (chess.getUnchangedLetterDistance(chess.uciToSplit(engine_mv)[0], chess.uciToSplit(engine_mv)[1]) < 0):
                                 piece_tracker['black']['rooks'][kingside_rook['n']] = 23
                                 piece_tracker['black']['king'][0] = 15
                             else:
                                 piece_tracker['black']['rooks'][queenside_rook['n']] = 39
                                 piece_tracker['black']['king'][0] = 47
+                            
+                            frm_piece = {
+                                'type': "rook and king",
+                                'side': "black",
+                                'n': 1
+                            }
                         else:
                             move = chess.uciToSplit(engine_mv)
 
@@ -505,7 +528,10 @@ def main():
                             #Update the piece tracker to black's move
                             piece_tracker[frm_piece['side']][frm_piece['type']][int(frm_piece['n'])] = to
 
-                        insults.moveInsult(frm_piece['type'], move[0], move[1])
+                        try:
+                            insults.moveInsult(frm_piece['type'], move[0], move[1])
+                        except:
+                            insults.play(insults.createNewRecording("i think i castled bitch, 530"))
                         display.changeTurn()
 
                         print("### FINISHED BLACK'S TURN ###")
@@ -549,19 +575,27 @@ def main():
                     print("### CALC BLACK'S MOVE ###")
                     
                     engine_mv = chess.makeEngineMove()
+
+                    frm_piece = {}
                     
                     #Check if the board is castling
                     if chess.getBoard().is_castling(engine_mv.move):
-                            print("Engine castled")
+                        print("Engine castled")
 
-                            kingside_rook = getPieceByCoord(7)
-                            queenside_rook = getPieceByCoord(63)
-                            if chess.getBoard().is_kingside_castling(engine_mv.move):
-                                piece_tracker['black']['rooks'][kingside_rook['n']] = 23
-                                piece_tracker['black']['king'][0] = 15
-                            else:
-                                piece_tracker['black']['rooks'][queenside_rook['n']] = 39
-                                piece_tracker['black']['king'][0] = 47
+                        kingside_rook = getPieceByCoord(7)
+                        queenside_rook = getPieceByCoord(63)
+                        if chess.getBoard().is_kingside_castling(engine_mv.move):
+                            piece_tracker['black']['rooks'][kingside_rook['n']] = 23
+                            piece_tracker['black']['king'][0] = 15
+                        else:
+                            piece_tracker['black']['rooks'][queenside_rook['n']] = 39
+                            piece_tracker['black']['king'][0] = 47
+                        
+                        frm_piece = {
+                            'type': "rook and king",
+                            'side': "black",
+                            'n': 1
+                        }
                     else: #if not, just do the turn.
                         move = chess.uciToSplit(engine_mv)
 
@@ -582,7 +616,10 @@ def main():
 
                         piece_tracker[frm_piece['side']][frm_piece['type']][int(frm_piece['n'])] = to
 
-                    insults.moveInsult(frm_piece['type'], move[0], move[1])
+                    try:
+                        insults.moveInsult(frm_piece['type'], move[0], move[1])
+                    except:
+                        insults.play(insults.createNewRecording("i think i castled bitch, 618"))
                     display.changeTurn()
 
                     print("### FINISH BLACK'S MOVE ###")
