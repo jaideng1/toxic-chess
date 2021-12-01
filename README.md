@@ -3,6 +3,8 @@ A toxic chess bot, meant to terrorize you while playing chess IRL.
 
 ### Running it
 
+Note: **I would not run this on your own.** Many things ended up only working for my setup, so it's gonna be a buggy mess if people try it on their own.
+
 I need to create a `requirements.txt` file in the future, but for now here's the packages that the program uses:
 ```
 python-chess
