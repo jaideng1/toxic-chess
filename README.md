@@ -1,6 +1,8 @@
 # toxic-chess
 A toxic chess bot, meant to terrorize you while playing chess IRL.
 
+Created by @JaidenAGrimminck
+
 ### Running it
 
 Note: **I would not run this on your own.** Many things ended up only working for my setup, so it's gonna be a buggy mess if people try it on their own.
